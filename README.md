@@ -1,5 +1,6 @@
 # bus-registration-system
 
+[Working demo](https://bus-registration.herokuapp.com/)
 [Project documentation](https://agh-computer-science-projects.github.io/docs/)
 
 To build project run command `./gradlew build`
