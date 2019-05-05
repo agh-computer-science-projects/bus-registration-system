@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage buses</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3>Add Bus</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Bus</p>
+
+    <form action="#" th:action="@{/buses/add}"
+          th:object="${bus}" method="POST">
+
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{type}"
+               class="form-control mb-4 col-4" placeholder="Bus type">
+
+        <input type="text" th:field="*{registrationNumber}"
+               class="form-control mb-4 col-4" placeholder="Bus registration number">
+
+        <input type="text" th:field="*{seats}"
+               class="form-control mb-4 col-4" placeholder="Number of seats">
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/buses}">Back to Bus List</a>
+
+</div>
+</body>
+</html>

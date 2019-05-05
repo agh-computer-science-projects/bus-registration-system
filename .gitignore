@@ -28,3 +28,8 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+# App config files
+/config/*
+!/config/README.md
+!/config/*.example
