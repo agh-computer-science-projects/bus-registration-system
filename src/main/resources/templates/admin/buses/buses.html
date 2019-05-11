@@ -50,5 +50,9 @@
     </table>
 
 </div>
+<a th:href="@{/admin-home}">Return to dashboard</a>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
 </body>
 </html>
