@@ -31,6 +31,7 @@ public class BusController {
     public String showAddBusForm(Model model) {
         Bus bus = new Bus();
         model.addAttribute("bus", bus);
+        model.addAttribute("update", false);
 
         return "admin/buses/bus-form";
     }
@@ -46,6 +47,7 @@ public class BusController {
     public String updateBusForm(@RequestParam("id") int busId, Model model) {
         Optional<Bus> bus = busService.findById(busId);
         bus.ifPresent(b -> model.addAttribute("bus", bus));
+        model.addAttribute("update", true);
 
         return "admin/buses/bus-form";
     }
