@@ -1,4 +1,4 @@
-package pl.edu.agh.to.busregistration.controllers;
+package pl.edu.agh.to.busregistration.admin.schedules;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +8,6 @@ public class SchedulesController {
 
     @GetMapping("/schedules")
     public String getSchedules() {
-        return "schedules";
+        return "admin/schedules/schedules";
     }
 }

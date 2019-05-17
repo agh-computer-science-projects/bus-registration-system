@@ -11,7 +11,7 @@
 <body>
 <div class="container">
 
-    <h3>Manage buses</h3>
+    <h1>Manage buses</h1>
     <hr>
 
     <!-- Add a button -->
@@ -50,5 +50,9 @@
     </table>
 
 </div>
+<a th:href="@{/admin-home}">Return to dashboard</a>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
 </body>
 </html>
