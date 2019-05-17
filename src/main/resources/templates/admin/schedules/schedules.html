@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus schedules</title>
+    <link rel="stylesheet" th:href="@{/css/schedules.css}"/>
+</head>
+<body>
+<h1>Manage schedules</h1>
+<hr>
+
+<!-- Add a button -->
+<a th:href="@{/schedules/add}"
+   class="btn btn-primary btn-sm mb-3">
+    Add Schedule
+</a>
+
+<table class="table table-bordered table-striped">
+</table>
+
+</div>
+<a th:href="@{/admin-home}">Return to dashboard</a>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
