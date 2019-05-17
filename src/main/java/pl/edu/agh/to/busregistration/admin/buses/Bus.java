@@ -1,6 +1,7 @@
 package pl.edu.agh.to.busregistration.admin.buses;
 
 import lombok.Data;
+import pl.edu.agh.to.busregistration.admin.passages.Passage;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -24,4 +25,8 @@ public class Bus {
     @Column(name = "seats")
     @Min(8)
     private int seats;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bus_id")
+    private Passage passage;
 }
