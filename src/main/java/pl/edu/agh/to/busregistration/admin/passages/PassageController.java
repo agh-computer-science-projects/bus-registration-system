@@ -5,19 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.to.busregistration.admin.buses.Bus;
+import pl.edu.agh.to.busregistration.admin.buses.BusService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/passages")
 public class PassageController {
 
     private PassageService passageService;
+    private BusService busService;
 
     @Autowired
-    public PassageController(PassageService passageService) {
+    public PassageController(PassageService passageService, BusService busService) {
         this.passageService = passageService;
+        this.busService = busService;
     }
 
     @GetMapping
@@ -33,11 +35,18 @@ public class PassageController {
         Passage passage = new Passage();
         model.addAttribute("passage", passage);
 
+        List<Bus> buses = busService.getAllBuses();
+        model.addAttribute("buses", buses);
+
+
         return "admin/passages/passage-form";
     }
 
     @PostMapping("/add")
     public String addPassage(@ModelAttribute("passage") Passage passage) {
+        if (passage.getBus() == null) {
+            return "redirect:/passages/add?error=true";
+        }
         passageService.savePassage(passage);
 
         return "redirect:/passages";
