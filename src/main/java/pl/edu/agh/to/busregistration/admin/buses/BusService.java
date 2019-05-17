@@ -25,6 +25,7 @@ public class BusService {
     }
 
     public Optional<Bus> findById(int busId) {
+        if (busId <= 0) throw new IllegalArgumentException("Bus id must be number greater than zero");
         return busRepository.findById(busId);
     }
 
