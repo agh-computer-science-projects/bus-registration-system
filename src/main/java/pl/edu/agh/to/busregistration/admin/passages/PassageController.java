@@ -3,7 +3,10 @@ package pl.edu.agh.to.busregistration.admin.passages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import pl.edu.agh.to.busregistration.admin.buses.Bus;
 import pl.edu.agh.to.busregistration.admin.buses.BusService;
 
@@ -33,7 +36,7 @@ public class PassageController {
     @GetMapping("/add")
     public String showAddPassageForm(Model model) {
         Passage passage = new Passage();
-        passage.setBus(new Bus());
+
         model.addAttribute("passage", passage);
 
         List<Bus> buses = busService.findAllUnassigned();
@@ -42,21 +45,33 @@ public class PassageController {
         return "admin/passages/passage-form";
     }
 
-    @PostMapping("/add")
-    public String addPassage(@ModelAttribute("passage") Passage passage) {
-        System.out.println(passage.getBus());
-        System.out.println(passage.getName());
-        if (passage.getBus() == null) {
-            System.out.println("bus is null");
-            return "redirect:/passages/add?error=true";
-        }
-        Bus bus = busService.findByRegistrationNumber(passage.getBus().getRegistrationNumber());
-        bus.setAssigned(true);
-        passage.setBus(bus);
-        passageService.savePassage(passage);
+    @PostMapping("/select-bus")
+    public String addBusToPassage(@ModelAttribute("passage") Passage passage, Model model) {
+        List<Bus> buses = busService.findAllUnassigned();
 
+        model.addAttribute("passage", passage);
+        model.addAttribute("buses", buses);
+
+        return "admin/passages/passage-form-select-bus";
+    }
+
+    @PostMapping("/add-bus")
+    public String addRouteToPassage(@ModelAttribute("passage") Passage passage,
+                                    @ModelAttribute("bus") Bus bus,
+                                    Model model) {
+        passage.setBus(bus);
+
+        model.addAttribute("passage", passage);
+//        model.addAttribute("routes", routes);
+
+        return "admin/passages/passage-form-select-route";
+    }
+
+    @PostMapping("/add")
+    public String addPassage(@ModelAttribute("passage") Passage passage, Model model) {
         return "redirect:/passages";
     }
+
 
 //    @GetMapping("/update")
 //    public String updateBusForm(@RequestParam("id") int busId, Model model) {

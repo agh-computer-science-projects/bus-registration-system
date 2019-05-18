@@ -23,7 +23,7 @@
 
     <p class="h4 mb-4">Save Passage</p>
 
-    <form id="parentElement" action="#" th:action="@{/passages/add}"
+    <form id="parentElement" action="#" th:action="@{/passages/select-bus}"
           th:object="${passage}" method="POST">
 
         <input type="text" th:field="*{name}"
@@ -32,47 +32,9 @@
         <input type="text" th:field="*{to}"
                class="form-control mb-4 col-4" placeholder="To">
 
-        <select th:field="*{bus.registrationNumber}">
-            <option th:each="bus : ${buses}" th:value="${bus.registrationNumber}"
-                    th:text="${bus.registrationNumber}"></option>
-        </select>
-
-        <!--<select name="week_scroll">-->
-        <!--<option>Select bus</option>-->
-        <!--<option th:each="bus : ${buses}" th:value="${bus.registrationNumber}" th:text="${bus.registrationNumber}"></option>-->
-        <!--</select>-->
-
-        <button type="submit" class="btn btn-info col-2">Save</button>
+        <button type="submit" class="btn btn-info col-2">Next: Select bus</button>
 
     </form>
-
-    <div>
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
-            <tr>
-                <th>Type</th>
-                <th>Registration Number</th>
-                <th>Number of seats</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <tr th:each="bus : ${buses}">
-
-                <td th:text="${bus.type}"></td>
-                <td th:text="${bus.registrationNumber}"></td>
-                <td th:text="${bus.seats}"></td>
-                <td>
-                    <button onclick="addInputLine()" name="addInputLine"
-                            class="btn btn-info btn-sm">Add to passage
-                    </button>
-                </td>
-
-            </tr>
-            </tbody>
-        </table>
-    </div>
 
 
     <hr>

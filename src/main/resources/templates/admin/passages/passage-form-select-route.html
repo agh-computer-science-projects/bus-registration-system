@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add route to passage</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <h3>Add Route To Passage</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Passage</p>
+
+    <div>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Type</th>
+                <th>Registration Number</th>
+                <th>Number of seats</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="bus : ${buses}">
+
+                <td th:text="${bus.type}"></td>
+                <td th:text="${bus.registrationNumber}"></td>
+                <td th:text="${bus.seats}"></td>
+                <td>
+                    <form action="#" th:action="@{/passages/select-route}"
+                          th:object="${bus}" method="POST">
+                        <button type="submit" class="btn btn-info col-2">Next: Add route</button>
+
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <a th:href="@{/passages}">Back to Passage List</a>
+
+</div>
+</body>
+</html>
