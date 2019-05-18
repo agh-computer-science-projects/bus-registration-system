@@ -4,7 +4,7 @@ VALUES
        ('2', 'Medium', 'KRA1234', '35', false , null);
 
 
-INSERT INTO `routes` (`id`, `name`, `from_city`, `to_city`, `duration`, `price`)
+INSERT INTO `routes` (`id`, `name`, `from_city`, `to_city`, `duration`, `price`, `assigned`)
 VALUES
-       ('1', 'Krakow-Katowice', 'Krakow', 'Katowice', 120 , 22.50),
-       ('2', 'Krakow-Warszawa', 'Krakow', 'Warszawa', 320 , 50.50);
+       ('1', 'Krakow-Katowice', 'Krakow', 'Katowice', 120 , 22.50, false ),
+       ('2', 'Krakow-Warszawa', 'Krakow', 'Warszawa', 320 , 50.50, false );

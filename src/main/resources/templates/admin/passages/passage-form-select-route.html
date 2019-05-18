@@ -20,24 +20,27 @@
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
             <tr>
-                <th>Type</th>
-                <th>Registration Number</th>
-                <th>Number of seats</th>
+                <th>Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Duration (minutes)</th>
+                <th>Price</th>
                 <th>Action</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr th:each="bus : ${buses}">
+            <tr th:each="route : ${routes}">
 
-                <td th:text="${bus.type}"></td>
-                <td th:text="${bus.registrationNumber}"></td>
-                <td th:text="${bus.seats}"></td>
+                <td th:text="${route.name}"></td>
+                <td th:text="${route.fromCity}"></td>
+                <td th:text="${route.toCity}"></td>
+                <td th:text="${route.duration}"></td>
+                <td th:text="${route.price}"></td>
                 <td>
-                    <form action="#" th:action="@{/passages/select-route}"
-                          th:object="${bus}" method="POST">
-                        <button type="submit" class="btn btn-info col-2">Next: Add route</button>
-
+                    <form action="#" th:action="@{/passages/add-passage}"
+                          th:object="${route}" method="POST">
+                        <button type="submit" class="btn btn-info col-12">Select route</button>
                     </form>
                 </td>
 

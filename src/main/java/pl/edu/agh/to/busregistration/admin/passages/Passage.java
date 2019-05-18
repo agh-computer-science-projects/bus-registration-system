@@ -2,6 +2,7 @@ package pl.edu.agh.to.busregistration.admin.passages;
 
 import lombok.Data;
 import pl.edu.agh.to.busregistration.admin.buses.Bus;
+import pl.edu.agh.to.busregistration.admin.routes.Route;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,5 +32,5 @@ public class Passage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "passage_id")
-    private Passage passage;
+    private Route route;
 }

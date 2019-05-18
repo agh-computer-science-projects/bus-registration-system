@@ -5,6 +5,7 @@ import lombok.Data;
 import pl.edu.agh.to.busregistration.admin.passages.Passage;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,9 @@ public class Route {
     @Column(name = "price")
     private double price;
 
-    @OneToMany(mappedBy = "passage", orphanRemoval = true)
-    private List<Passage> passages;
+    @Column(name = "assigned", nullable = false)
+    private boolean assigned;
+
+    @OneToMany(mappedBy = "route", orphanRemoval = true)
+    private List<Passage> passages = new ArrayList<>();
 }

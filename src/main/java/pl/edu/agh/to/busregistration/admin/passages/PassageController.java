@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.edu.agh.to.busregistration.admin.buses.Bus;
 import pl.edu.agh.to.busregistration.admin.buses.BusService;
+import pl.edu.agh.to.busregistration.admin.routes.Route;
+import pl.edu.agh.to.busregistration.admin.routes.RouteService;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -18,11 +21,13 @@ public class PassageController {
 
     private PassageService passageService;
     private BusService busService;
+    private RouteService routeService;
 
     @Autowired
-    public PassageController(PassageService passageService, BusService busService) {
+    public PassageController(PassageService passageService, BusService busService, RouteService routeService) {
         this.passageService = passageService;
         this.busService = busService;
+        this.routeService = routeService;
     }
 
     @GetMapping
@@ -62,30 +67,37 @@ public class PassageController {
         passage.setBus(bus);
 
         model.addAttribute("passage", passage);
-//        model.addAttribute("routes", routes);
+
+        List<Route> unassignedRoutes = routeService.findAllUnassigned();
+
+        model.addAttribute("routes", unassignedRoutes);
+        model.addAttribute("bus", bus);
 
         return "admin/passages/passage-form-select-route";
+    }
+
+    @PostMapping("/add-passage")
+    public String addPassage(@ModelAttribute("passage") Passage passage,
+                             @ModelAttribute("route") Route route,
+                             @ModelAttribute("bus") Bus bus) {
+
+        bus.setPassage(passage);
+        passage.setBus(bus);
+
+        route.getPassages().add(passage);
+        passage.setRoute(route);
+
+        passage.setDate(new Date());
+
+        busService.saveBus(passage.getBus());
+        routeService.saveRoute(passage.getRoute());
+        passageService.savePassage(passage);
+
+        return "redirect:/routes";
     }
 
     @PostMapping("/add")
     public String addPassage(@ModelAttribute("passage") Passage passage, Model model) {
         return "redirect:/passages";
     }
-
-
-//    @GetMapping("/update")
-//    public String updateBusForm(@RequestParam("id") int busId, Model model) {
-//        Optional<Bus> bus = busService.findById(busId);
-//        bus.ifPresent(b -> model.addAttribute("bus", bus));
-//        model.addAttribute("update", true);
-//
-//        return "admin/buses/bus-form";
-//    }
-//
-//    @GetMapping("/delete/{busId}")
-//    public String deleteBus(@PathVariable("busId") int busId) {
-//        busService.deleteBus(busId);
-//
-//        return "redirect:/buses";
-//    }
 }
