@@ -26,6 +26,9 @@ public class Bus {
     @Min(8)
     private int seats;
 
+    @Column(name = "assigned", nullable = false)
+    private boolean assigned;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bus_id")
     private Passage passage;

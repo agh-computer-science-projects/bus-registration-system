@@ -32,4 +32,12 @@ public class BusService {
     public void deleteBus(int busId) {
         busRepository.deleteById(busId);
     }
+
+    public List<Bus> findAllUnassigned() {
+        return busRepository.findAllByAssignedIsFalse();
+    }
+
+    public Bus findByRegistrationNumber(String registrationNumber) {
+        return busRepository.findByRegistrationNumber(registrationNumber);
+    }
 }

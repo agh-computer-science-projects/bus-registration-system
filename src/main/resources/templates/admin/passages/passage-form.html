@@ -7,6 +7,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <script>
+        function addInputLine() {
+            var node = document.createElement("input");                 // Create an <input> node
+            document.getElementById("parentElement").appendChild(node);     // Append it to the parent
+        }
+    </script>
+
 </head>
 <body>
 <div class="container">
@@ -15,10 +23,8 @@
 
     <p class="h4 mb-4">Save Passage</p>
 
-    <form action="#" th:action="@{/passages/add}"
+    <form id="parentElement" action="#" th:action="@{/passages/add}"
           th:object="${passage}" method="POST">
-
-        <!--<input type="hidden" th:if="${update}" th:field="*{id}"/>-->
 
         <input type="text" th:field="*{name}"
                class="form-control mb-4 col-4" placeholder="Name">
@@ -26,39 +32,47 @@
         <input type="text" th:field="*{to}"
                class="form-control mb-4 col-4" placeholder="To">
 
+        <select th:field="*{bus.registrationNumber}">
+            <option th:each="bus : ${buses}" th:value="${bus.registrationNumber}"
+                    th:text="${bus.registrationNumber}"></option>
+        </select>
+
+        <!--<select name="week_scroll">-->
+        <!--<option>Select bus</option>-->
+        <!--<option th:each="bus : ${buses}" th:value="${bus.registrationNumber}" th:text="${bus.registrationNumber}"></option>-->
+        <!--</select>-->
+
         <button type="submit" class="btn btn-info col-2">Save</button>
 
     </form>
 
-    <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-        <tr>
-            <th>Type</th>
-            <th>Registration Number</th>
-            <th>Number of seats</th>
-            <th>Action</th>
-        </tr>
-        </thead>
+    <div>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Type</th>
+                <th>Registration Number</th>
+                <th>Number of seats</th>
+                <th>Action</th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <tr th:each="bus : ${buses}">
+            <tbody>
+            <tr th:each="bus : ${buses}">
 
-            <td th:text="${bus.type}"></td>
-            <td th:text="${bus.registrationNumber}"></td>
-            <td th:text="${bus.seats}"></td>
-            <td>
-                <a th:href="@{/buses/update(id=${bus.id})}"
-                   class="btn btn-info btn-sm">Update</a>
+                <td th:text="${bus.type}"></td>
+                <td th:text="${bus.registrationNumber}"></td>
+                <td th:text="${bus.seats}"></td>
+                <td>
+                    <button onclick="addInputLine()" name="addInputLine"
+                            class="btn btn-info btn-sm">Add to passage
+                    </button>
+                </td>
 
-                <a th:href="@{/buses/delete/{id}(id=${bus.id})}"
-                   class="btn btn-danger btn-sm"
-                   onclick="if (!(confirm('Are you sure you want to delete this bus?'))) return false">Delete</a>
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
-
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
     <hr>

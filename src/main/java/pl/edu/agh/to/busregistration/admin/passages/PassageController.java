@@ -33,20 +33,26 @@ public class PassageController {
     @GetMapping("/add")
     public String showAddPassageForm(Model model) {
         Passage passage = new Passage();
+        passage.setBus(new Bus());
         model.addAttribute("passage", passage);
 
-        List<Bus> buses = busService.getAllBuses();
+        List<Bus> buses = busService.findAllUnassigned();
         model.addAttribute("buses", buses);
-
 
         return "admin/passages/passage-form";
     }
 
     @PostMapping("/add")
     public String addPassage(@ModelAttribute("passage") Passage passage) {
+        System.out.println(passage.getBus());
+        System.out.println(passage.getName());
         if (passage.getBus() == null) {
+            System.out.println("bus is null");
             return "redirect:/passages/add?error=true";
         }
+        Bus bus = busService.findByRegistrationNumber(passage.getBus().getRegistrationNumber());
+        bus.setAssigned(true);
+        passage.setBus(bus);
         passageService.savePassage(passage);
 
         return "redirect:/passages";
