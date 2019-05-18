@@ -28,4 +28,8 @@ public class Passage {
     @OneToOne(mappedBy = "passage", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
     private Bus bus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "passage_id")
+    private Passage passage;
 }

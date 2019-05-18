@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage routes</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3>Add route</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Route</p>
+
+    <form action="#" th:action="@{/routes/add}"
+          th:object="${route}" method="POST">
+
+        <input type="hidden" th:if="${update}" th:field="*{id}"/>
+
+        <input type="text" th:field="*{name}"
+               class="form-control mb-4 col-4" placeholder="Name">
+
+        <input type="text" th:field="*{fromCity}"
+               class="form-control mb-4 col-4" placeholder="From">
+
+        <input type="text" th:field="*{toCity}"
+               class="form-control mb-4 col-4" placeholder="To">
+
+        <input type="text" th:field="*{duration}"
+               class="form-control mb-4 col-4" placeholder="Duration (minutes)">
+
+        <input type="text" th:field="*{price}"
+               class="form-control mb-4 col-4" placeholder="Price (PLN)">
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/buses}">Back to Routes List</a>
+
+</div>
+</body>
+</html>
