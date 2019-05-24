@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage buses</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <h3>Add Passage</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Passage</p>
+
+    <form id="parentElement" action="#" th:action="@{/passages/select-bus}"
+          th:object="${passage}" method="POST">
+
+        <input type="text" th:field="*{name}"
+               class="form-control mb-4 col-4" placeholder="Name">
+
+        <input type="text" th:field="*{to}"
+               class="form-control mb-4 col-4" placeholder="To">
+
+        <button type="submit" class="btn btn-info col-2">Next: Select bus</button>
+
+    </form>
+
+
+    <hr>
+    <a th:href="@{/passages}">Back to Passage List</a>
+
+</div>
+</body>
+</html>

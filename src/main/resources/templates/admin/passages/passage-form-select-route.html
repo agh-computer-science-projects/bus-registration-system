@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add route to passage</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <h3>Add Route To Passage</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Passage</p>
+
+    <div>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Duration (minutes)</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="route : ${routes}">
+
+                <td th:text="${route.name}"></td>
+                <td th:text="${route.fromCity}"></td>
+                <td th:text="${route.toCity}"></td>
+                <td th:text="${route.duration}"></td>
+                <td th:text="${route.price}"></td>
+                <td>
+                    <form action="#" th:action="@{/passages/add-passage}"
+                          th:object="${route}" method="POST">
+                        <button type="submit" class="btn btn-info col-12">Select route</button>
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <a th:href="@{/passages}">Back to Passage List</a>
+
+</div>
+</body>
+</html>
